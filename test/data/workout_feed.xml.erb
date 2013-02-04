@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
+  <channel>
+    <title><%= feed[:title] || "Crossfit Edmonton" %></title>
+	<atom:link href="http://crossfitEdmonton.ca/feed/" rel="self" type="application/rss+xml" />
+	<link><%= feed[:link] || "http://gym.com/link" %></link>
+	<description></description>
+	<lastBuildDate><%= feed[:last_build_date] || Date.today %></lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+    <generator>http://wordpress.org/?v=3.4.2</generator>
+      <% feed[:workouts].each_with_index do |w, index| %>
+        <item>
+          <title><%= w[:title] || "title goes here" %></title>
+          <link><%= w[:link] || "http://gym.com" %></link>
+          <comments><%= w[:comments] || "comments go here" %></comments>
+          <pubDate><%= w[:pub_date] || Date.today - index %></pubDate>
+          <dc:creator><%= w[:creator] || "Chris Olsen" %></dc:creator>
+          <category><![CDATA[WOD]]></category>
+          <guid isPermaLink="false"><%= w[:permalink] || "http://gym.com/foo" %></guid>
+          <description><![CDATA[ <%= w[:description] || "description goes here" %> ]]></description>
+          <content:encoded><![CDATA[<p><%= w[:content] || "content goes here" %></p> ]]></content:encoded>
+          <slash:comments>0</slash:comments>
+        </item>
+      <% end %>
+  </channel>
+</rss>
